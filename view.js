@@ -10,19 +10,21 @@ const handleFileSelect = (ev) => {
     console.log(dimensions);
     console.log(data);
 
-    [canvas.height, canvas.width] = dimensions.split(" ").map(n => parseInt(n));
+    [canvas.height, canvas.width] = dimensions
+      .split(" ")
+      .map((n) => parseInt(n));
 
     canvas.style.width = canvas.width + "px";
     canvas.style.height = canvas.height + "px";
 
     let colors = [];
     for (let i = 0; i < data.length; i += 4) {
-      let r = data.charCodeAt(i)  ;
-      let g = data.charCodeAt(i+1);
-      let b = data.charCodeAt(i+2);
-      let a = data.charCodeAt(i+3);
+      let r = data.charCodeAt(i);
+      let g = data.charCodeAt(i + 1);
+      let b = data.charCodeAt(i + 2);
+      let a = data.charCodeAt(i + 3);
 
-      colors.push(`rgb(${r}, ${g}, ${b})`)
+      colors.push(`rgb(${r}, ${g}, ${b})`);
 
       console.log(i);
     }
