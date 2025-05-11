@@ -1,0 +1,40 @@
+const selector = document.querySelector("#kitn");
+
+const handleFileSelect = (ev) => {
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const img = new Image();
+    img.src = e.target.result;
+    console.log(img.width, img.style.width, img.height, img.style.height);
+
+    const canvas = document.querySelector("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+
+    const bytes = ctx.getImageData(0, 0, img.width, img.height);
+    console.log(bytes);
+
+    let data = `KITN\n${img.width} ${img.height}\n`;
+
+    for (let i = 0; i < bytes.data.length; i++) {
+      data += String.fromCharCode(bytes.data[i]);
+    }
+
+    console.log(data);
+
+    const a = document.createElement("a");
+    a.href = "data:text/plain;charset=utf-8;base64," + btoa(unescape(encodeURIComponent(data)));
+    a.download = "file.kitn";
+    a.click();
+  }
+
+  const f = ev.target.files[0];
+  document.querySelector("span.file-name").textContent = f.name;
+
+  reader.readAsDataURL(f);
+};
+
+selector.addEventListener("change", handleFileSelect, false);
