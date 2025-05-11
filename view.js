@@ -19,10 +19,10 @@ const handleFileSelect = (ev) => {
 
     let colors = [];
     for (let i = 0; i < data.length; i += 4) {
-      let r = data.charCodeAt(i);
-      let g = data.charCodeAt(i + 1);
-      let b = data.charCodeAt(i + 2);
-      let a = data.charCodeAt(i + 3);
+      let r = data.codePointAt(i);
+      let g = data.codePointAt(i + 1);
+      let b = data.codePointAt(i + 2);
+      let a = data.codePointAt(i + 3);
 
       colors.push(`rgb(${r}, ${g}, ${b})`);
 
@@ -31,19 +31,17 @@ const handleFileSelect = (ev) => {
 
     const ctx = canvas.getContext("2d");
 
-    let x = canvas.width;
+    let x = 0;
     let y = 0;
     for (let i in colors) {
       ctx.fillStyle = colors[i];
-      ctx.fillRect(x, y, 1, 1);
-      x--;
-      if (x === 0) {
-        y++;
-        x = canvas.width;
+      ctx.fillRect(y, x, 1, 1);
+      y++;
+      if (y === canvas.height) {
+        x++;
+        y = 0;
       }
     }
-
-    canvas.style.rotate = "-90deg";
 
     console.log(colors);
   };

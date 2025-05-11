@@ -17,7 +17,19 @@
       </div>
 
       <div class="section">
-        <!-- TODO: Image converter goes here -->
+        <div class="file is-primary has-name">
+          <label class="file-label">
+            <input class="file-input" type="file" name="kitn" id="kitn" />
+            <span class="file-cta file-label">Choose a file</span>
+            <span class="file-name">None selected</span>
+          </label>
+        </div>
+
+        <button class="button is-primary convertbtn">Convert Image</button>
+
+        <div class="section">
+          <canvas></canvas>
+        </div>
       </div>
     </div>
 
@@ -42,5 +54,7 @@
         </ul>
       </div>
     </footer>
+
+    <script defer src="./convert.js"></script>
   </body>
 </html>
