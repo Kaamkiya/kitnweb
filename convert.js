@@ -26,10 +26,12 @@ const handleFileSelect = (ev) => {
     console.log(data);
 
     const a = document.createElement("a");
-    a.href = "data:text/plain;charset=utf-8;base64," + btoa(unescape(encodeURIComponent(data)));
+    a.href =
+      "data:text/plain;charset=utf-8;base64," +
+      btoa(unescape(encodeURIComponent(data)));
     a.download = "file.kitn";
     a.click();
-  }
+  };
 
   const f = ev.target.files[0];
   document.querySelector("span.file-name").textContent = f.name;
