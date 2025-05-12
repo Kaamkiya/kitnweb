@@ -10,6 +10,8 @@ const handleFileSelect = (ev) => {
     console.log(dimensions);
     console.log(data);
 
+    window.tmp_imgdata = data;
+
     [canvas.height, canvas.width] = dimensions
       .split(" ")
       .map((n) => parseInt(n));

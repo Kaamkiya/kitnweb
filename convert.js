@@ -4,7 +4,11 @@ const handleFileSelect = (ev) => {
   const reader = new FileReader();
   reader.onload = (e) => {
     const img = new Image();
-    img.src = e.target.result;
+    try {
+      img.src = e.target.result;
+    } catch (err) {
+      alert(err);
+    }
     console.log(img.width, img.style.width, img.height, img.style.height);
 
     const canvas = document.querySelector("canvas");
@@ -20,15 +24,16 @@ const handleFileSelect = (ev) => {
     let data = `KITN\n${img.width} ${img.height}\n`;
 
     for (let i = 0; i < bytes.data.length; i++) {
-      data += String.fromCharCode(bytes.data[i]);
+      data += unescape(encodeURIComponent(String.fromCharCode(bytes.data[i])));
     }
 
-    console.log(data);
+    console.log(data.length - `KITN\n${img.width} ${img.height}\n` == bytes.length, data);
 
     const a = document.createElement("a");
     a.href =
       "data:text/plain;charset=utf-8;base64," +
-      btoa(unescape(encodeURIComponent(data)));
+      btoa(data);
+      //btoa(unescape(encodeURIComponent(data)));
     a.download = "file.kitn";
     a.click();
   };
@@ -36,7 +41,11 @@ const handleFileSelect = (ev) => {
   const f = ev.target.files[0];
   document.querySelector("span.file-name").textContent = f.name;
 
-  reader.readAsDataURL(f);
+  try {
+    reader.readAsDataURL(f);
+  } catch(err) {
+    alert(err);
+  };
 };
 
 selector.addEventListener("change", handleFileSelect, false);
