@@ -1,6 +1,8 @@
 const selector = document.querySelector("#kitn");
+const button = document.querySelector(".convertbtn");
+let f;
 
-const handleFileSelect = (ev) => {
+button.onclick = () => {
   const reader = new FileReader();
   reader.onload = (e) => {
     const img = new Image();
@@ -18,7 +20,7 @@ const handleFileSelect = (ev) => {
     const ctx = canvas.getContext("2d");
     ctx.drawImage(img, 0, 0);
 
-    const bytes = ctx.getImageData(0, 0, img.width, img.height);
+    const bytes = ctx.getImageData(0, 0, canvas.width, canvas.height);
     console.log(bytes);
 
     let data = `KITN\n${img.width} ${img.height}\n`;
@@ -38,14 +40,17 @@ const handleFileSelect = (ev) => {
     a.click();
   };
 
-  const f = ev.target.files[0];
-  document.querySelector("span.file-name").textContent = f.name;
-
   try {
     reader.readAsDataURL(f);
   } catch(err) {
     alert(err);
   };
+}
+
+const handleFileSelect = (ev) => {
+  f = ev.target.files[0];
+  document.querySelector("span.file-name").textContent = f.name;
+
 };
 
 selector.addEventListener("change", handleFileSelect, false);

@@ -24,11 +24,9 @@ const handleFileSelect = (ev) => {
       let r = data.codePointAt(i);
       let g = data.codePointAt(i + 1);
       let b = data.codePointAt(i + 2);
-      let a = data.codePointAt(i + 3);
+      //let a = data.codePointAt(i + 3);
 
       colors.push(`rgb(${r}, ${g}, ${b})`);
-
-      console.log(i);
     }
 
     const ctx = canvas.getContext("2d");
